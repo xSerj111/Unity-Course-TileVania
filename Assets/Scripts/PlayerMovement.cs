@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D myBoxCollider;
     CapsuleCollider2D myCapsuleCollider;
     SpriteRenderer mySpriteRenderer;
+    public GameObject bullet;
+    [SerializeField] Transform gun;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
 
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         myBoxCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        myRigidbodyGravityAtStart = myRigidbody.gravityScale;
+        myRigidbodyGravityAtStart = myRigidbody.gravityScale;        
     }
 
     void Update()
@@ -154,6 +157,11 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody.velocity = swimingVelocity;
         myRigidbody.gravityScale = swimmingGravity;
         Debug.Log("Swimming");
+    }
+    void OnFire()
+    {
+        if (!isAlive) { return; }
+        Instantiate(bullet, gun.position, transform.rotation);
     }
 
 }
